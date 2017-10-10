@@ -46,6 +46,7 @@ class EnumField(base_class):
                 # First setattr no previous value on instance.
                 old_value = new_value
             # Update private enum attribute with new value
+            self.__dict__[att_name] = new_value
             setattr(self, private_att_name, new_value)
             # Run validation for new value.
             validators.validate_valid_transition(enum, old_value, new_value)
@@ -54,6 +55,7 @@ class EnumField(base_class):
             return getattr(self, private_att_name)
 
         def delete_enum(self):
+            self.__dict__[att_name] = None
             return setattr(self, private_att_name, None)
 
         if not sender._meta.abstract:
